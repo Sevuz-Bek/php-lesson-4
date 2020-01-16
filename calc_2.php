@@ -1,65 +1,31 @@
-<!-- криво работает - не делит  -->
-
-
-
-
-
 <?php 
-  if ($_POST['submit']) {
-    $a = (int)$_POST['first'];
-    $b = (int)$_POST['second'];
-    $operation = $_POST['operation'];
-    $result = 0;
+include 'functions.php';
 
-    if ($result == '+') {
-      $result = $a + $b;
-    }
-    elseif ($result == '-') {
-      $result = $a - $b;
-    }
-    elseif ($result == '*') {
-      $result = $a * $b;
-    }
-    elseif ($result == '/') {
-      if ($b == 0) 
-        echo 'На ноль делить нельзя';
-      else $result = $a / $b;
-    }
-    else $result = pow($a, $b);
+if (isset($_POST['a']) && isset($_POST['b'])) {
+  if(isset($_POST['addition'])) {
+    $operation = '+';
   }
+  elseif(isset($_POST['subtraction'])) {
+    $operation = '-';
+  }
+  elseif(isset($_POST['multiplication'])) {
+    $operation = '*';
+  }
+  elseif(isset($_POST['division'])) {
+    $operation = '/';
+  }
+  $result = get_result($_POST['a'], $_POST['b'], $operation);
+}
 ?>
 
-<form action="" method="post">
-  <input type="textbox" name="first" required>
+<form action="calc_2.php" method="post">
 
-  <select name="operation" required>
-    <option value="+"> + </option>
-    <option value="-"> - </option>
-    <option value="*"> * </option>
-    <option value="/"> / </option>
-    <option value="^"> ^ </option>
-  </select>
-
-  <input type="textbox" name="second" required>
-
-  <input type="submit" name ="submit" value="=">
+  <input type="text" name="a" placeholder="Введите число" value="<?=$_POST['a']?>">
+  <b><?= $operation ?></b>
+  <input type="text" name="b" placeholder="Введите число" value="<?=$_POST['b']?>">
+  <b> = <?= $result ?></b> <br>
+  <input type="submit" value="+" name="addition">
+  <input type="submit" value="-" name="subtraction">
+  <input type="submit" value="*" name="multiplication">
+  <input type="submit" value="/" name="division">
 </form>
-<?php 
-    echo $result;
-?>
-
-
-
-
-
-
-<!-- <form action="" method="post">
-  <input type="text" name="a" required>
-  <input type="text" name="b" required>
-  <input type="submit" value="=">
-  <br><br>
-  <input type="submit" value="+">
-  <input type="submit" value="-">
-  <input type="submit" value="*">
-  <input type="submit" value="/">
-</form> -->
